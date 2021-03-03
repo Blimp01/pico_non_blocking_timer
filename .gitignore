@@ -1,0 +1,8 @@
+# Ignore build folder from GIT
+build/*
+!build/.gitkeep
+example/build/*
+!example/build/.gitkeep
+
+# Igore Mac OS files
+.DS_Store

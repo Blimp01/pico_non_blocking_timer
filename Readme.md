@@ -10,9 +10,7 @@
 
 ## Making Example.c
 ```sh
-cd pico_non_blocking_timer/example 
-mkdir build
-cd build
+cd pico_non_blocking_timer/example/build
 export PICO_SDK_PATH=../../../pico-sdk (insert your SDK path)
 cmake ..
 make
