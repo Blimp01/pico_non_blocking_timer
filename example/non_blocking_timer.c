@@ -8,11 +8,11 @@ sys_timer systick;
 void init_systick()
 { 
 	systick_hw->csr = 0; 	    //Disable 
-	systick_hw->rvr = 124999UL; // System clock(125Mhz)/ rvr value = 1000ms 
-        systick_hw->csr = 0x7;      //Enable	
+	systick_hw->rvr = 124999UL; //Standard System clock (125Mhz)/ (rvr value + 1) = 1ms 
+        systick_hw->csr = 0x7;      //Enable Systic, Enable Exceptions	
 }
 
-extern void isr_systick() //Rewrite systick IRQ
+extern void isr_systick() //Rewrite of weak systick IRQ in crt0.s file
 {
 	systick.u32_tick_count++;     
 }
@@ -44,7 +44,7 @@ uint8_t non_blocking_timer_expired(non_blocking_timer_handler *timer)
 {
 	if(timer->timer_enabled == true)
 	{
-		if ((get_systick() - timer->u32_t0_ms) >= timer->u32_timer_period)
+		if ((get_systick() - timer->u32_t0_ms) >= timer->u32_timer_period) //accounts for buffer overflow
 		{
 			return TIMER_EXPIRED;
 		}
