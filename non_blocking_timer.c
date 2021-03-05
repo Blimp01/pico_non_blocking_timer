@@ -22,11 +22,12 @@ uint32_t get_systick()
 	return systick.u32_tick_count;
 }
 
-void init_non_blocking_timer(non_blocking_timer_handler *timer , uint32_t u32_time_period_ms)
+void init_non_blocking_timer(non_blocking_timer_handler *timer , uint32_t u32_time_period_ms,uint8_t u8_user_mode)
 {
 	timer->u32_t0_ms = 0U;
 	timer->u32_timer_period = u32_time_period_ms;
 	timer->timer_enabled = false;
+	timer->u8_mode = u8_user_mode;
 }
 
 void start_non_blocking_timer(non_blocking_timer_handler *timer)
@@ -46,6 +47,10 @@ uint8_t non_blocking_timer_expired(non_blocking_timer_handler *timer)
 	{
 		if ((get_systick() - timer->u32_t0_ms) >= timer->u32_timer_period) //accounts for buffer overflow
 		{
+			if (timer->u8_mode == CONTINOUS_MODE)
+			{
+				start_non_blocking_timer(timer); //Restart Timer for user in Continuous mode
+			}
 			return TIMER_EXPIRED;
 		}
 		else
