@@ -9,6 +9,7 @@ void init_systick()
 { 
 	systick_hw->csr = 0; 	    //Disable 
 	systick_hw->rvr = 124999UL; //Standard System clock (125Mhz)/ (rvr value + 1) = 1ms 
+	systick_hw->cvr = 0;        //clear the count to force initial reload
         systick_hw->csr = 0x7;      //Enable Systic, Enable Exceptions	
 }
 
