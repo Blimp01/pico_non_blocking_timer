@@ -6,7 +6,7 @@
 #define TIMER_NOT_ENABLED 2U
 
 #define SINGLE_MODE    0U //Timer fires once 
-#define CONTINOUS_MODE 1U //Timer will restart it's self once elapsed
+#define CONTINOUS_MODE 1U //Timer will restart itself once elapsed
 
 typedef struct
 {
